@@ -1,20 +1,29 @@
 name: Run Password Bot
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'   # প্রতি ৫ মিনিটে
-  workflow_dispatch:
+  workflow_dispatch:  # শুধু ম্যানুয়ালি চালানোর জন্য
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          python-version: '3.9'
+          fetch-depth: 0
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5  # v4 থেকে v5 করলাম
+        with:
+          python-version: '3.11'  # 3.9 থেকে 3.11 করলাম
+      
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
       - name: Run Bot
         run: python password_bot.py
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
