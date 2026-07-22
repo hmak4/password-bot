@@ -1,0 +1,26 @@
+name: 🤖 Run Password Bot 24/7
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'   # প্রতি ৫ মিনিটে চালু হবে
+  workflow_dispatch:        # ম্যানুয়ালি চালানোর জন্য
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          pip install -r requirements.txt
+      
+      - name: 🤖 Run Bot
+        run: python password_bot.py
