@@ -1,29 +1,15 @@
-name: Run Password Bot
+name: Run Bot
 
 on:
-  workflow_dispatch:  # শুধু ম্যানুয়ালি চালানোর জন্য
+  workflow_dispatch:
 
 jobs:
-  run-bot:
+  test:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          fetch-depth: 0
-      
-      - name: Setup Python
-        uses: actions/setup-python@v5  # v4 থেকে v5 করলাম
-        with:
-          python-version: '3.11'  # 3.9 থেকে 3.11 করলাম
-      
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      
-      - name: Run Bot
-        run: python password_bot.py
-        env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          python-version: '3.11'
+      - run: pip install python-telegram-bot
+      - run: python password_bot.py
