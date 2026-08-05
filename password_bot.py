@@ -7,7 +7,7 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 # =============================================
 # 👇 এখানে টোকেন বসাও
 # =============================================
-BOT_TOKEN = "8800919612:AAE3UnZVGz2O573_5wnRr8kJVMo2cXqQNTc"
+BOT_TOKEN = ""
 # =============================================
 
 logging.basicConfig(level=logging.INFO)
